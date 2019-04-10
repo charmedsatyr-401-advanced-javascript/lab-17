@@ -1,0 +1,9 @@
+{
+  "source": {
+    "include": ["./app.js", "./lib", "logger.js", "server.js"]
+  },
+  "opts": {
+    "destination": "./docs",
+    "recurse": true
+  }
+}

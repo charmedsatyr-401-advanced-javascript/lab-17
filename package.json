@@ -13,7 +13,8 @@
   "scripts": {
     "lint": "eslint '**/*.js'",
     "test": "jest --coverage --verbose",
-    "test-watch": "jest --coverage --verbose --watch"
+    "test-watch": "jest --coverage --verbose --watch",
+    "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json"
   },
   "repository": {
     "type": "git",
