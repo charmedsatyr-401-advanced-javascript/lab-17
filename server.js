@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 3001;
 const server = net.createServer();
 
 server.listen(PORT, () => console.log(`Server up on ${PORT}`));
+server.on('error', handleError);
 
 let socketPool = {};
 
@@ -42,3 +43,13 @@ server.on('connection', socket => {
     delete socketPool[id];
   });
 });
+
+/**
+ * This function logs server connection errors.
+ * @function
+ * @name handleError
+ * @param err {object} An error
+ **/
+function handleError(err) {
+  console.error(`server error: ${err.message}`);
+}

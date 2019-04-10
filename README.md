@@ -150,6 +150,7 @@ This module reads a file and returns a Promise. It writes a `file` with the give
       ✓ rejects when given bad data
 
 * What assertions need to be / should be made?
+Connection error handlers need testing.
 
 Some tests inadvertently trigger a TCP connection that results in an error if the server is offline.
 

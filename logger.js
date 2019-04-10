@@ -10,16 +10,7 @@ const HOST = process.env.HOST || 'localhost';
 client.connect(PORT, HOST, handleConnect);
 client.on('data', handleData);
 client.on('close', handleClose);
-
-/**
- * This function logs a message to the console
- * when the TCP connection is established.
- * @function
- * @name handleConnect
- **/
-function handleConnect() {
-  console.log(`logger: Connection established...`);
-}
+client.on('error', handleError);
 
 /**
  * This function parses received data and logs
@@ -53,6 +44,26 @@ function handleData(buffer) {
 
 /**
  * This function logs a message to the console
+ * when the TCP connection is established.
+ * @function
+ * @name handleConnect
+ **/
+function handleConnect() {
+  console.log(`logger: Connection established...`);
+}
+
+/**
+ * This function logs client connection errors.
+ * @function
+ * @name handleError
+ * @param err {object} An error
+ **/
+function handleError(err) {
+  console.error(`logger error: ${err.message}`);
+}
+
+/**
+ * This function logs a message to the console
  * when the TCP connection is closed.
  * @function
  * @name handleClose
@@ -61,4 +72,4 @@ function handleClose() {
   console.log(`logger: Connection closed...`);
 }
 
-module.exports = { handleConnect, handleData, handleClose };
+module.exports = { handleConnect, handleData, handleError, handleClose };
