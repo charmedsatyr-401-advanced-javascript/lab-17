@@ -18,7 +18,7 @@ client.on('close', handleClose);
  * @name handleConnect
  **/
 function handleConnect() {
-  console.log(`Logger: Connection established...`);
+  console.log(`logger: Connection established...`);
 }
 
 /**
@@ -30,11 +30,12 @@ function handleConnect() {
  **/
 function handleData(buffer) {
   const received = JSON.parse(buffer.toString().trim());
-  const { event, payload } = received;
+  const { event, payload, message } = received;
+  const m = message ? `, Message: ${message}` : '';
   if (event === 'save') {
-    console.log(`Saved: ${payload}`);
+    console.log(`Saved: ${payload}${m}`);
   } else if (event === 'error') {
-    console.error(`Error: ${payload}`);
+    console.error(`Error: ${payload}${m}`);
   }
 }
 
@@ -45,5 +46,5 @@ function handleData(buffer) {
  * @name handleClose
  **/
 function handleClose() {
-  console.log(`Logger: Connection closed...`);
+  console.log(`logger: Connection closed...`);
 }
