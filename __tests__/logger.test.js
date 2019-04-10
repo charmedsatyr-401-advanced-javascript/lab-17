@@ -2,7 +2,7 @@
 
 const { handleData, handleConnect, handleClose } = require('../logger.js');
 
-const log = jest.spyOn(global.console, 'log');
+const log = jest.spyOn(global.console, 'log').mockImplementation(() => {});
 const error = jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
 describe('`handleData` function', () => {

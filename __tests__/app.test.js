@@ -2,7 +2,7 @@
 
 const { alterFile, handleConnect, handleClose } = require('../app.js');
 
-const log = jest.spyOn(global.console, 'log');
+const log = jest.spyOn(global.console, 'log').mockImplementation(() => {});
 
 describe('`alterFile` function', () => {
   it('should not throw an error', () => {
