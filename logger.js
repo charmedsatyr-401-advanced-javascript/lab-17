@@ -29,6 +29,18 @@ function handleConnect() {
  * @param buffer {buffer} A TCP buffer
  **/
 function handleData(buffer) {
+  // Validator function
+  const isJSON = input => {
+    try {
+      JSON.parse(input.toString().trim());
+    } catch (err) {
+      return false;
+    }
+    return true;
+  };
+  if (!isJSON(buffer)) {
+    return;
+  }
   const received = JSON.parse(buffer.toString().trim());
   const { event, payload, message } = received;
   const m = message ? `, Message: ${message}` : '';
