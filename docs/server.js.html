@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: lib/read.js</title>
+    <title>JSDoc: Source: server.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: lib/read.js</h1>
+    <h1 class="page-title">Source: server.js</h1>
 
     
 
@@ -28,19 +28,48 @@
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
 
-const fs = require('fs');
+const net = require('net');
 
-const { promisify } = require('util');
-const readFile = promisify(fs.readFile);
+const PORT = process.env.PORT || 3001;
+const server = net.createServer();
+
+server.listen(PORT, () => console.log(`Server up on ${PORT}`));
+
+let socketPool = {};
 
 /**
+ * Handle events received by the server
  * @function
- * @name read
- * @param file {path} The path to a file on the filesystem
+ * @name dispatchEvent
+ * @param buffer {buffer} A data buffer received by the server
  **/
-const read = file => readFile(file);
+const dispatchEvent = buffer => {
+  const parsed = JSON.parse(buffer);
+  const authorized = { save: true, error: true };
+  const { event, payload, message } = parsed;
+  const output = JSON.stringify({ event, payload, message });
+  if (authorized[event]) {
+    console.log(`BROADCAST: ${output}`);
+    for (let socket in socketPool) {
+      socketPool[socket].write(`${output}\n`);
+    }
+  } else {
+    console.log(`IGNORE: ${output}\n`);
+  }
+};
 
-module.exports = read;
+// Connect the socket server, create a socket pool,
+// and dispatch events to a handler. Handle disconnections.
+server.on('connection', socket => {
+  const id = `Socket-${Math.random()}`;
+  console.log(`Welcome, ${id}`);
+  socketPool[id] = socket;
+  socket.on('data', buffer => dispatchEvent(buffer));
+  socket.on('close', () => {
+    console.log(`Goodbye, ${id}`);
+    delete socketPool[id];
+  });
+});
 </code></pre>
         </article>
     </section>
