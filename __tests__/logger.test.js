@@ -3,7 +3,7 @@
 const { handleData, handleConnect, handleClose } = require('../logger.js');
 
 const log = jest.spyOn(global.console, 'log');
-const error = jest.spyOn(global.console, 'error');
+const error = jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
 describe('`handleData` function', () => {
   it('should do nothing if its argument has the wrong format', () => {

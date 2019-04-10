@@ -1,15 +1,15 @@
 'use strict';
 
-const { /* alterFile, */ handleConnect, handleClose } = require('../app.js');
+const { alterFile, handleConnect, handleClose } = require('../app.js');
 
 const log = jest.spyOn(global.console, 'log');
 
-// describe('`alterFile` function', () => {
-//   it('should be good', () => {
-//     alterFile;
-//     expect(true).toBeTruthy();
-//   });
-// });
+describe('`alterFile` function', () => {
+  it('should not throw an error', () => {
+    const file = 'file.txt';
+    expect(() => alterFile(file)).not.toThrow();
+  });
+});
 
 describe('`handleConnect` function', () => {
   it('should log to the console once', () => {
