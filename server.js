@@ -9,7 +9,12 @@ server.listen(PORT, () => console.log(`Server up on ${PORT}`));
 
 let socketPool = {};
 
-// handle events received by the server
+/**
+ * Handle events received by the server
+ * @function
+ * @name dispatchEvent
+ * @param buffer {buffer} A data buffer received by the server
+ **/
 const dispatchEvent = buffer => {
   const parsed = JSON.parse(buffer);
   const authorized = { save: true, error: true };
