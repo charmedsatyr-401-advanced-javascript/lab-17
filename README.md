@@ -105,35 +105,52 @@ This module reads a file and returns a Promise. It writes a `file` with the give
 * What assertions were made?
   * `app.test.js`
     * `handleConnect` function
+
       ✓ should log to the console once (18ms)
     * `handleClose` function
+
       ✓ should log to the console once (1ms)
   * `logger.test.js`
     * `handleData` function
-      ✓ should do nothing if its argument has the wrong format (6ms)
-      ✓ should log event, payload, and message values if they exist for a `save` event (2ms)
-      ✓ should log event, payload, and message values if they exist for an `error` event (6ms)
+
+      ✓ should do nothing if its argument has the wrong format
+
+      ✓ should log event, payload, and message values if they exist for a `save` event
+
+      ✓ should log event, payload, and message values if they exist for an `error` event 
     * `handleConnect` function
-      ✓ should log to the console once (1ms)
+
+      ✓ should log to the console once
     * `handleClose` function
-      ✓ should log to the console once (1ms)
+
+      ✓ should log to the console once
     * `handleClose` function
-      ✓ should log to the console once (2ms)
+
+      ✓ should log to the console once
   * `read.test.js`
     * `read` function
-      ✓ resolves when given a good file (2ms)
-      ✓ throws an error when given a bad file (1ms)
+
+      ✓ resolves when given a good file
+
+      ✓ throws an error when given a bad file
+
   * `uppercase.test.js`
     * `uppercase` function
-      ✓ should transform its argument text to uppercase (4ms)
-      ✓ should accept and return a buffer (2ms)
+
+      ✓ should transform its argument text to uppercase
+
+      ✓ should accept and return a buffer
   * `write.test.js`
     * `write` function
-      ✓ resolves when given a good file (8ms)
-      ✓ rejects when given a bad file (3ms)
-      ✓ rejects when given bad data (1ms)
+
+      ✓ resolves when given a good file
+
+      ✓ rejects when given a bad file
+
+      ✓ rejects when given bad data
 
 * What assertions need to be / should be made?
+
 Some tests inadvertently trigger a TCP connection that results in an error if the server is offline.
 
 It has not been determined which tests are responsible.
