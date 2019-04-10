@@ -48,3 +48,5 @@ function handleData(buffer) {
 function handleClose() {
   console.log(`logger: Connection closed...`);
 }
+
+module.exports = { handleConnect, handleData, handleClose };

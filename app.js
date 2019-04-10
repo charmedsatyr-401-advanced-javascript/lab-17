@@ -4,19 +4,26 @@ const net = require('net');
 const PORT = process.env.PORT || 3001;
 const HOST = process.env.HOST || 'localhost';
 const client = new net.Socket();
+
+const read = require('./lib/read.js');
+const uppercase = require('./lib/uppercase.js');
+const write = require('./lib/write.js');
+
+// Connect to the TCP socket
 client.connect(PORT, HOST, handleConnect);
-client.on('close', handleClose);
 
-const fs = require('fs');
-const { promisify } = require('util');
-const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
-const uppercase = buffer => Buffer.from(buffer.toString().toUpperCase());
-
+/**
+ * This function reads a file and replaces its contents with
+ * uppercased letters. It sends an object to a connected TCP socket
+ * on completion or error and disconnects from the socket.
+ * @function
+ * @name alterFile
+ * @param file {path} The path to a file on the filesystem
+ */
 const alterFile = file => {
-  readFile(file)
+  read(file)
     .then(uppercase)
-    .then(buffer => writeFile(file, buffer))
+    .then(buffer => write(file, buffer))
     .then(() => {
       const save = JSON.stringify({ event: 'save', payload: file });
       client.write(save);
@@ -31,6 +38,9 @@ const alterFile = file => {
 
 const file = process.argv.slice(2).shift();
 alterFile(file);
+
+// Fallback close handler
+client.on('close', handleClose);
 
 /**
  * This function logs a message to the console
@@ -51,3 +61,6 @@ function handleConnect() {
 function handleClose() {
   console.log(`app: Connection closed...`);
 }
+
+// Export
+module.exports = { alterFile, handleConnect, handleClose };

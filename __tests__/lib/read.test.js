@@ -8,7 +8,7 @@ describe('`read` function', () => {
   it('resolves when given a good file', () => {
     const file = 'file.txt';
     const result = read(file);
-    return expect(result).resolves.toEqual(new Buffer.from('File Contents'));
+    return expect(result).resolves.toEqual(Buffer.from('File Contents'));
   });
   it('throws an error when given a bad file', () => {
     const file = 'bad.txt';
