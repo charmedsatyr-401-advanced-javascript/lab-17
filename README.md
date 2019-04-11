@@ -1,7 +1,7 @@
 ![CF](http://i.imgur.com/7v5ASc8.png) LAB
 =================================================
 
-## Lab 16: Event Driven Applications
+## Lab 17: TCP Server/Message Application
 
 ### Author: Joseph Wolfe
 
